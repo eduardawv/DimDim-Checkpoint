@@ -1,0 +1,9 @@
+{
+  "_descricao": "Exemplos de requisições GET e DELETE para teste",
+  "GET_todos_tutores": "GET http://<URL>:8080/api/tutores",
+  "GET_tutor_por_id": "GET http://<URL>:8080/api/tutores/1",
+  "GET_todos_pets": "GET http://<URL>:8080/api/pets",
+  "GET_pet_por_id": "GET http://<URL>:8080/api/pets/1",
+  "DELETE_tutor": "DELETE http://<URL>:8080/api/tutores/1",
+  "DELETE_pet": "DELETE http://<URL>:8080/api/pets/1"
+}
