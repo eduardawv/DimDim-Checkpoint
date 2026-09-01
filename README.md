@@ -2,7 +2,7 @@
 
 > **Checkpoint 1 — 2o Semestre — Containers em Nuvem (ACR/ACI)**  
 > Java 17 · Spring Boot 3.5 · MySQL 8 · Docker · Azure ACR + ACI  
-> FIAP 2026 — 2TDS Fevereiro — Prof. João Menk
+> FIAP 2026 — 2TDSPX Fevereiro — Prof. João Menk
 
 ---
 
@@ -25,39 +25,6 @@ API REST em Java 17 com Spring Boot, containerizada e implantada no Azure usando
 | Lucas Nunes Soares | RM566503 |
 
 **RM representante:** 564434 (prefixo dos recursos Azure)
-
----
-
-## 🏗️ Arquitetura
-
-```
-Desenvolvedor                    Microsoft Azure (eastus)
-     │                   ┌──────────────────────────────────────────┐
-     │ docker build      │  Resource Group: rm564434-dimdim-rg     │
-     │ docker push       │                                          │
-     └─────────────────► │  ┌────────────────────────────────────┐  │
-                         │  │  ACR: rm564434acr                  │  │
-                         │  │  Imagens: rm564434-dimdim-app      │  │
-                         │  │           mysql:8.0                 │  │
-                         │  └───────────────┬────────────────────┘  │
-                         │                  │ pull                  │
-                         │  ┌───────────────▼────────────────────┐  │
-                         │  │  ACI: rm564434-dimdim-group        │  │
-                         │  │                                    │  │
- Usuarios ──HTTP:8080──► │  │  ┌────────────┐  ┌─────────────┐  │  │
-                         │  │  │ rm564434   │  │ rm564434    │  │  │
-                         │  │  │ -app       │  │ -db         │  │  │
-                         │  │  │ Java 17    ├──► MySQL 8     │  │  │
-                         │  │  │ user:      │  │ dimdimdb    │  │  │
-                         │  │  │ appuser    │  └──────┬──────┘  │  │
-                         │  │  └────────────┘  ┌──────▼──────┐  │  │
-                         │  │                  │ Azure Files │  │  │
-                         │  │                  │ Volume      │  │  │
-                         │  │                  │ Persistente │  │  │
-                         │  │                  └─────────────┘  │  │
-                         │  └────────────────────────────────────┘  │
-                         └──────────────────────────────────────────┘
-```
 
 ---
 
@@ -226,7 +193,7 @@ exit
 
 ---
 
-## 🐳 Comandos de build e push
+## 🐳 Comandos de build e push MANUAL
 
 ```bash
 # Build da imagem do App
