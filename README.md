@@ -1,46 +1,85 @@
-# 💰 Projeto DimDim
+# DimDim - CP5 - Aplicativos e Banco em Nuvem
 
-> **Checkpoint 1 — 2o Semestre — Containers em Nuvem (ACR/ACI)**  
-> Java 17 · Spring Boot 3.5 · MySQL 8 · Docker · Azure ACR + ACI  
-> FIAP 2026 — 2TDSPX Fevereiro — Prof. João Menk
+## Descricao da Solucao
 
----
+O **DimDim** e uma aplicacao web de gestao financeira pessoal construida com **Java 17 + Spring Boot 3.5**, implantada na nuvem Microsoft Azure utilizando servicos PaaS (Platform as a Service).
 
-## 📖 Descrição
+A solucao permite o cadastro de **tutores** e seus **pets**, demonstrando operacoes CRUD completas com persistencia em **Azure SQL Database** e monitoramento via **Application Insights**.
 
-API REST em Java 17 com Spring Boot, containerizada e implantada no Azure usando ACR e ACI, com banco MySQL 8 containerizado e volume persistente via Azure Files (Conta de Armazenamento).
-
-**Stack:** Java 17 + Spring Boot 3.5 + MySQL 8 + Docker  
-**Deploy:** Azure Container Registry (ACR) + Azure Container Instance (ACI)  
-**Persistência:** Azure Files montado em `/var/lib/mysql`
-
----
-
-## 👥 Integrantes
-
-| Nome | RM |
-|------|-----|
-| Camily Vitoria Pereira Maciel | RM566520 |
-| Eduarda Weiss Ventura (representante) | RM564434 |
-| Lucas Nunes Soares | RM566503 |
-
-**RM representante:** 564434 (prefixo dos recursos Azure)
+### Beneficios para o Negocio
+- Gestao centralizada de dados de tutores e pets
+- Escalabilidade automatica via Azure Web App
+- Monitoramento em tempo real com Application Insights
+- Banco de dados gerenciado (PaaS) com alta disponibilidade
+- Deploy automatizado via GitHub Actions (CI/CD)
 
 ---
 
-## 🚀 Deploy completo — Passo a passo
+## Desenho Macro da Arquitetura
 
-### Pré-requisitos
+```
+┌─────────────┐     HTTPS      ┌──────────────────┐
+│   Usuario    │ ──────────────>│  Azure Web App   │
+│  (Browser)   │                │  Java 17 / Boot  │
+└─────────────┘                │  rm564434-dimdim  │
+                               └────────┬─────────┘
+                                        │ JDBC (TLS)
+                                        v
+                               ┌──────────────────┐
+                               │ Azure SQL Server  │
+                               │   rm564434-sqlsrv │
+                               │  Database: dimdim │
+                               └──────────────────┘
+                                        │
+                               ┌────────┴─────────┐
+                               │  Application      │
+                               │  Insights          │
+                               │  (Monitoramento)   │
+                               └──────────────────┘
+```
 
-| Ferramenta | Instalação |
-|------------|-----------|
-| Azure CLI | [learn.microsoft.com/cli/azure](https://learn.microsoft.com/cli/azure/install-azure-cli) |
-| Docker Desktop | [docker.com](https://www.docker.com/products/docker-desktop/) |
-| Git | [git-scm.com](https://git-scm.com/) |
+**Componentes:**
+- **Azure Web App** (Linux, Java 17) — hospeda a API REST
+- **Azure SQL Database** (PaaS, tier S0) — banco relacional gerenciado
+- **Application Insights** — monitoramento de performance e telemetria
+- **GitHub Actions** — CI/CD automatizado (build + deploy)
 
 ---
 
-### Passo 1 — Clonar o repositório
+## Rotas da API
+
+### Tutores (`/api/tutores`)
+
+| Metodo | Rota               | Descricao           |
+|--------|--------------------|-----------------------|
+| GET    | /api/tutores       | Listar todos          |
+| GET    | /api/tutores/{id}  | Buscar por ID         |
+| POST   | /api/tutores       | Criar novo tutor      |
+| PUT    | /api/tutores/{id}  | Atualizar tutor       |
+| DELETE | /api/tutores/{id}  | Remover tutor         |
+
+### Pets (`/api/pets`)
+
+| Metodo | Rota             | Descricao           |
+|--------|------------------|-----------------------|
+| GET    | /api/pets        | Listar todos          |
+| GET    | /api/pets/{id}   | Buscar por ID         |
+| POST   | /api/pets        | Criar novo pet        |
+| PUT    | /api/pets/{id}   | Atualizar pet         |
+| DELETE | /api/pets/{id}   | Remover pet           |
+
+---
+
+## How To - Instalacao da Solucao em Nuvem
+
+### Pre-requisitos
+
+- [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) instalado
+- Conta Azure com creditos ativos
+- Java 17 e Maven instalados localmente
+- Git instalado
+
+### Passo 1 — Clonar o Repositorio
 
 ```bash
 git clone https://github.com/eduardawv/DimDim-Checkpoint.git
@@ -53,238 +92,267 @@ cd DimDim-Checkpoint
 az login
 ```
 
-### Passo 3 — Executar o script de deploy
+### Passo 3 — Executar o Script de Setup
+
+O script cria todos os recursos automaticamente: Resource Group, SQL Server, SQL Database, Web App, Application Insights e configura as variaveis de ambiente.
 
 ```bash
-./azure-setup-cp1.sh
+chmod +x scripts/azure-setup-cp5.sh
+./scripts/azure-setup-cp5.sh
 ```
 
-O script cria automaticamente:
-1. Resource Group `rm564434-dimdim-rg`
-2. ACR `rm564434acr`
-3. Build e push da imagem do App para o ACR
-4. Push da imagem MySQL para o ACR
-5. Storage Account `rm564434storage` + File Share (volume persistente)
-6. Container Group no ACI com dois containers (MySQL + App)
+**Recursos criados pelo script:**
+- Resource Group: `rg-rm564434-dimdim-cp5`
+- SQL Server: `rm564434-dimdim-sqlsrv`
+- Database: `dimdimdb`
+- Web App: `rm564434-dimdim-webapp`
+- App Insights: `rm564434-dimdim-insights`
+- App Service Plan: `rm564434-dimdim-plan` (Linux, B1)
 
-### Passo 4 — Verificar status dos containers
+### Passo 4 — Aguardar Inicializacao
+
+Aguarde ~2 minutos para a aplicacao iniciar. Acesse:
+
+```
+https://rm564434-dimdim-webapp.azurewebsites.net/swagger-ui.html
+```
+
+### Passo 5 — Executar DDL no Banco (Opcional)
+
+O Hibernate cria as tabelas automaticamente (`ddl-auto=update`), mas voce pode executar a DDL manualmente:
 
 ```bash
-az container show \
-  --resource-group rm564434-dimdim-rg \
-  --name rm564434-dimdim-group \
-  --query "containers[].{Nome:name, Estado:instanceView.currentState.state}" \
-  --output table
+# Via Azure Portal > SQL Database > Query Editor
+# Ou via sqlcmd:
+sqlcmd -S rm564434-dimdim-sqlsrv.database.windows.net \
+  -d dimdimdb -U dimdimadmin -P 'DimDim@Fiap2026!' \
+  -i scripts/ddl-dimdim.sql
 ```
 
-Resultado esperado:
-```
-Nome           Estado
--------------  --------
-rm564434-db    Running
-rm564434-app   Running
-```
+### Passo 6 — Testar CRUD (Tutores)
 
-### Passo 5 — Obter URL público
-
+**6.1 — POST (Criar Tutor)**
 ```bash
-az container show \
-  --resource-group rm564434-dimdim-rg \
-  --name rm564434-dimdim-group \
-  --query "ipAddress.fqdn" --output tsv
-```
-
-Resultado:
-```
-rm564434-dimdim.eastus.azurecontainer.io
-```
-
-### Passo 6 — Verificar Swagger UI
-
-Abra no navegador:
-```
-http://rm564434-dimdim.eastus.azurecontainer.io:8080/swagger-ui.html
-```
-
----
-
-## 🧪 Testes do CRUD via terminal
-
-> Substitua `<URL>` pelo FQDN obtido no Passo 5.  
-> Exemplo: `<URL>` = `rm564434-dimdim.eastus.azurecontainer.io`
-
-### 7.1 — CREATE: Inserir tutor
-
-```bash
-curl -X POST http://<URL>:8080/api/tutores \
+curl -s -X POST \
+  https://rm564434-dimdim-webapp.azurewebsites.net/api/tutores \
   -H "Content-Type: application/json" \
-  -d '{"nome":"Carlos Silva","email":"carlos@email.com","telefone":"11999990001","senha":"123456"}'
+  -d @json/tutor-post.json | python3 -m json.tool
 ```
 
-### 7.2 — Verificar INSERT no banco
-
+**6.2 — GET (Listar Tutores)**
 ```bash
-az container exec \
-  --resource-group rm564434-dimdim-rg \
-  --name rm564434-dimdim-group \
-  --container-name rm564434-db \
-  --exec-command "mysql -u dimdim_user -pDimDim@Pass123 dimdimdb"
+curl -s https://rm564434-dimdim-webapp.azurewebsites.net/api/tutores | python3 -m json.tool
 ```
 
+**6.3 — PUT (Atualizar Tutor id=1)**
+```bash
+curl -s -X PUT \
+  https://rm564434-dimdim-webapp.azurewebsites.net/api/tutores/1 \
+  -H "Content-Type: application/json" \
+  -d @json/tutor-put.json | python3 -m json.tool
+```
+
+**6.4 — DELETE (Remover Tutor id=1)**
+```bash
+curl -s -X DELETE \
+  https://rm564434-dimdim-webapp.azurewebsites.net/api/tutores/1 -w "\nHTTP %{http_code}\n"
+```
+
+**6.5 — Verificar no Banco (Azure Portal > Query Editor)**
 ```sql
 SELECT * FROM tb_tutor;
 ```
 
-### 7.3 — CREATE: Inserir pet
+### Passo 7 — Testar CRUD (Pets)
 
+**7.1 — POST (Criar Pet)**
 ```bash
-curl -X POST http://<URL>:8080/api/pets \
+curl -s -X POST \
+  https://rm564434-dimdim-webapp.azurewebsites.net/api/pets \
   -H "Content-Type: application/json" \
-  -d '{"nome":"Thor","especie":"Cachorro","raca":"Golden Retriever","idade":5,"peso":32.5,"tutorId":1}'
+  -d @json/pet-post.json | python3 -m json.tool
 ```
 
-### 7.4 — Verificar INSERT do pet no banco
+**7.2 — GET (Listar Pets)**
+```bash
+curl -s https://rm564434-dimdim-webapp.azurewebsites.net/api/pets | python3 -m json.tool
+```
 
+**7.3 — PUT (Atualizar Pet id=1)**
+```bash
+curl -s -X PUT \
+  https://rm564434-dimdim-webapp.azurewebsites.net/api/pets/1 \
+  -H "Content-Type: application/json" \
+  -d @json/pet-put.json | python3 -m json.tool
+```
+
+**7.4 — DELETE (Remover Pet id=1)**
+```bash
+curl -s -X DELETE \
+  https://rm564434-dimdim-webapp.azurewebsites.net/api/pets/1 -w "\nHTTP %{http_code}\n"
+```
+
+**7.5 — Verificar no Banco (Azure Portal > Query Editor)**
 ```sql
 SELECT * FROM tb_pet;
 ```
 
-### 7.5 — READ: Listar via GET
+### Passo 8 — Verificar Application Insights
+
+1. Acesse o **Azure Portal** > **Application Insights** > `rm564434-dimdim-insights`
+2. Verifique:
+   - **Live Metrics** — requisicoes em tempo real
+   - **Performance** — tempo de resposta das rotas
+   - **Failures** — erros e excecoes
+   - **Application Map** — mapa de dependencias (Web App → SQL)
+3. Faca requests no Swagger e veja refletir no Application Insights
+
+### Passo 9 — Remover Recursos (APOS gravar o video)
 
 ```bash
-curl http://<URL>:8080/api/tutores
-curl http://<URL>:8080/api/pets
+chmod +x scripts/azure-destroy-cp5.sh
+./scripts/azure-destroy-cp5.sh
 ```
 
-Ou via Swagger UI: `GET /api/tutores` → Try it out → Execute
-
-### 7.6 — UPDATE: Atualizar pet
-
-```bash
-curl -X PUT http://<URL>:8080/api/pets/1 \
-  -H "Content-Type: application/json" \
-  -d '{"nome":"Thor Atualizado","especie":"Cachorro","raca":"Golden Retriever","idade":6,"peso":33.0,"tutorId":1}'
-```
-
-### 7.7 — Verificar UPDATE no banco
-
-```sql
-SELECT * FROM tb_pet WHERE id = 1;
-```
-
-### 7.8 — DELETE: Remover pet
-
-```bash
-curl -X DELETE http://<URL>:8080/api/pets/1
-```
-
-### 7.9 — Verificar DELETE no banco
-
-```sql
-SELECT * FROM tb_pet WHERE id = 1;
--- Resultado esperado: Empty set (0 rows)
-```
-
-### 7.10 — Sair do MySQL
-
-```sql
-exit
-```
+**Tire print da tela de remocao como evidencia!**
 
 ---
 
-## 🐳 Comandos de build e push MANUAL
-
-```bash
-# Build da imagem do App
-docker build -t rm564434acr.azurecr.io/rm564434-dimdim-app:latest .
-
-# Login no ACR
-az acr login --name rm564434acr
-
-# Push do App
-docker push rm564434acr.azurecr.io/rm564434-dimdim-app:latest
-
-# Push do MySQL (evita dependência do Docker Hub)
-docker pull mysql:8.0
-docker tag mysql:8.0 rm564434acr.azurecr.io/mysql:8.0
-docker push rm564434acr.azurecr.io/mysql:8.0
-
-# Verificar imagens no ACR
-az acr repository list --name rm564434acr --output table
-```
-
----
-
-## 📋 Logs dos containers
-
-```bash
-# Logs do App
-az container logs \
-  --resource-group rm564434-dimdim-rg \
-  --name rm564434-dimdim-group \
-  --container-name rm564434-app
-
-# Logs do MySQL
-az container logs \
-  --resource-group rm564434-dimdim-rg \
-  --name rm564434-dimdim-group \
-  --container-name rm564434-db
-```
-
----
-
-## 🗑️ Deletar recursos
-
-```bash
-az group delete --name rm564434-dimdim-rg --yes --no-wait
-```
-
----
-
-## 📂 Estrutura do repositório
+## Estrutura do Repositorio
 
 ```
 DimDim-Checkpoint/
-├── Dockerfile                    # Multi-stage (JDK→JRE, user: appuser)
-├── aci-deploy.yaml               # YAML ACI com volume Azure Files
-├── azure-setup-cp1.sh            # Script Azure CLI completo
-├── azure-destroy-cp1.sh          # Script para deletar recursos
-├── docker-compose.yml            # Teste local
-├── script_bd.sql                 # DDL das tabelas
-├── json-testes/                  # Arquivos JSON para testes
-│   ├── POST_tutor.json
-│   ├── PUT_tutor.json
-│   ├── POST_pet.json
-│   ├── PUT_pet.json
-│   └── GET_DELETE_endpoints.json
-├── pom.xml
+├── .github/
+│   └── workflows/
+│       └── deploy-azure.yml        # CI/CD GitHub Actions
+├── scripts/
+│   ├── azure-setup-cp5.sh          # Script CLI para criar recursos
+│   ├── azure-destroy-cp5.sh        # Script CLI para remover recursos
+│   └── ddl-dimdim.sql              # DDL das tabelas (Azure SQL)
+├── json/
+│   ├── tutor-post.json             # JSON para POST tutor
+│   ├── tutor-put.json              # JSON para PUT tutor
+│   ├── pet-post.json               # JSON para POST pet
+│   └── pet-put.json                # JSON para PUT pet
 ├── src/
-│   └── main/resources/
-│       ├── application.properties
-│       └── application-prod.properties
+│   └── main/
+│       ├── java/...                # Codigo fonte Java
+│       └── resources/
+│           ├── application.properties
+│           └── application-azure.properties
+├── pom.xml
+├── Dockerfile
 └── README.md
 ```
 
 ---
 
-## 🗄️ Banco de Dados
+## Dockerfile
 
-**Banco:** MySQL 8 (containerizado no ACI, imagem via ACR)  
-**Persistência:** Azure Files montado em `/var/lib/mysql`  
-**DDL:** [`script_bd.sql`](./script_bd.sql)  
-**Tabelas:** `tb_tutor` e `tb_pet` (FK: `tb_pet.tutor_id → tb_tutor.id`)
+```dockerfile
+FROM eclipse-temurin:17-jdk AS build
+WORKDIR /app
+COPY pom.xml .
+COPY .mvn/ .mvn/
+COPY mvnw .
+RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
+RUN ./mvnw dependency:go-offline -B --no-transfer-progress
+COPY src/ src/
+RUN ./mvnw package -DskipTests -B --no-transfer-progress
+
+FROM eclipse-temurin:17-jre AS runtime
+WORKDIR /app
+RUN groupadd --system appgroup && \
+    useradd --system --gid appgroup --shell /bin/false appuser
+COPY --from=build /app/target/*.jar app.jar
+RUN chown -R appuser:appgroup /app
+USER appuser
+EXPOSE 8080
+ENV SPRING_PROFILES_ACTIVE=azure
+ENTRYPOINT ["java", "-Xms256m", "-Xmx512m", "-jar", "app.jar"]
+```
 
 ---
 
-## ☁️ Recursos Azure (prefixo RM564434)
+## Scripts Azure CLI
 
-| Recurso | Nome |
-|---------|------|
-| Resource Group | `rm564434-dimdim-rg` |
-| Container Registry (ACR) | `rm564434acr` |
-| Container App | `rm564434-app` |
-| Container DB | `rm564434-db` |
-| Storage Account | `rm564434storage` |
-| File Share (volume) | `rm564434-dbdata` |
-| DNS público | `rm564434-dimdim.eastus.azurecontainer.io` |
+### azure-setup-cp5.sh
+Cria todos os recursos na Azure:
+1. Resource Group
+2. Azure SQL Server + Firewall
+3. Azure SQL Database
+4. App Service Plan (Linux B1)
+5. Web App (Java 17)
+6. Application Insights
+7. Configura App Settings (variaveis de ambiente com secrets)
+8. Habilita logs
+9. Build e deploy do JAR
+
+### azure-destroy-cp5.sh
+Remove todos os recursos apos a gravacao do video.
+
+---
+
+## JSON das Operacoes CRUD
+
+Os arquivos JSON estao na pasta `json/`:
+
+| Arquivo           | Operacao | Tabela |
+|-------------------|----------|--------|
+| tutor-post.json   | POST     | Tutor  |
+| tutor-put.json    | PUT      | Tutor  |
+| pet-post.json     | POST     | Pet    |
+| pet-put.json      | PUT      | Pet    |
+
+---
+
+## Alteracoes no pom.xml (obrigatorias)
+
+Adicionar a dependencia do driver SQL Server e Application Insights:
+
+```xml
+<!-- Driver Azure SQL Server -->
+<dependency>
+    <groupId>com.microsoft.sqlserver</groupId>
+    <artifactId>mssql-jdbc</artifactId>
+    <scope>runtime</scope>
+</dependency>
+
+<!-- Application Insights (monitoramento) -->
+<dependency>
+    <groupId>com.microsoft.azure</groupId>
+    <artifactId>applicationinsights-spring-boot-starter</artifactId>
+    <version>2.6.4</version>
+</dependency>
+```
+
+**Remover** a dependencia do MySQL (se existir):
+```xml
+<!-- REMOVER ESTA DEPENDENCIA -->
+<dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <scope>runtime</scope>
+</dependency>
+```
+
+---
+
+## Equipe
+
+| Nome              | RM       |
+|-------------------|----------|
+| Camily            | RM566520 |
+| Eduarda (Rep.)    | RM564434 |
+| Lucas             | RM566503 |
+
+---
+
+## Link do Video
+
+[YouTube - DimDim CP5 Demo](https://www.youtube.com/watch?v=INSERIR_LINK)
+
+---
+
+**Disciplina:** DevOps Tools & Cloud Computing — FIAP 2026  
+**Professor:** Joao Menk
