@@ -1,5 +1,6 @@
 package br.com.fiap.clyvo.model;
 
+import br.com.fiap.clyvo.model.enums.Perfil;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,26 +22,38 @@ public class Tutor {
     @Column(nullable = false, length = 20)
     private String telefone;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private Perfil perfil = Perfil.TUTOR;
+
     @Column(nullable = false, length = 255)
     private String senha;
 
     @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Pet> pets = new ArrayList<>();
 
-    // Construtor Padrão (Obrigatório para o JPA)
+
     public Tutor() {
     }
 
-    // Construtor Completo
+
     public Tutor(Long id, String nome, String email, String telefone, String senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.senha = senha;
+        this.perfil = Perfil.TUTOR;
+
     }
 
     // Getters e Setters
+
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
     public Long getId() {
         return id;
     }
@@ -87,5 +100,9 @@ public class Tutor {
 
     public void setPets(List<Pet> pets) {
         this.pets = pets;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
     }
 }

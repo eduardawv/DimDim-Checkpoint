@@ -21,7 +21,11 @@ public record PetRequestDTO(
         @Positive(message = "O peso deve ser maior que zero")
         Double peso,
 
-        @NotNull(message = "O ID do tutor responsável é obrigatório")
+        // ALTERADO - Sprint 4: deixou de ser obrigatorio.
+        // Quando quem cadastra e um TUTOR, este campo e IGNORADO e o dono do pet
+        // passa a ser o tutor do token. O campo continua existindo para nao quebrar
+        // o app mobile, que ja envia esse JSON, e para o fluxo do VETERINARIO,
+        // que precisa informar de qual tutor e o pet.
         Long tutorId
 ) {
 }

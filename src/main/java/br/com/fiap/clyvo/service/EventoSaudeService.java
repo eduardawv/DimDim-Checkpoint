@@ -6,25 +6,47 @@ import br.com.fiap.clyvo.model.EventoSaude;
 import br.com.fiap.clyvo.model.Pet;
 import br.com.fiap.clyvo.repository.EventoSaudeRepository;
 import br.com.fiap.clyvo.repository.PetRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cache.annotation.CacheEvict;
 
 @Service
 public class EventoSaudeService {
 
-    @Autowired
-    private EventoSaudeRepository repository;
+    private final EventoSaudeRepository repository;
+    private final PetRepository petRepository;
+    private final PetService petService;
 
-    @Autowired
-    private PetRepository petRepository;
+    public EventoSaudeService(
+            EventoSaudeRepository repository,
+            PetRepository petRepository,
+            PetService petService
+    ) {
+        this.repository = repository;
+        this.petRepository = petRepository;
+        this.petService = petService;
+    }
 
+
+    private EventoSaudeResponseDTO toResponse(EventoSaude evento, Pet pet) {
+        return new EventoSaudeResponseDTO(
+                evento.getId(),
+                pet.getId(),
+                evento.getTipoEvento(),
+                evento.getDescricao(),
+                evento.getDataEvento(),
+                pet.getHealthScore()
+        );
+    }
+
+
+    @CacheEvict(value = "listaDePets", allEntries = true)
     @Transactional
     public EventoSaudeResponseDTO cadastrarEvento(EventoSaudeRequestDTO dto) {
-        Pet pet = petRepository.findById(dto.petId())
-                .orElseThrow(() -> new RuntimeException("Pet não encontrado com o ID: " + dto.petId()));
+
+        Pet pet = petService.buscarPetAutorizado(dto.petId());
 
         EventoSaude evento = new EventoSaude();
         evento.setPet(pet);
@@ -39,31 +61,17 @@ public class EventoSaudeService {
 
         evento = repository.save(evento);
 
-        return new EventoSaudeResponseDTO(
-                evento.getId(),
-                pet.getId(),
-                evento.getTipoEvento(),
-                evento.getDescricao(),
-                evento.getDataEvento(),
-                pet.getHealthScore()
-        );
+        return toResponse(evento, pet);
     }
 
     @Transactional(readOnly = true)
     public Page<EventoSaudeResponseDTO> buscarEventosPorPet(Long petId, Pageable paginacao) {
-        if (!petRepository.existsById(petId)) {
-            throw new RuntimeException("Pet não encontrado com o ID: " + petId);
-        }
 
-        Page<EventoSaude> eventos = repository.findByPetIdOrderByDataEventoDesc(petId, paginacao);
+        Pet pet = petService.buscarPetAutorizado(petId);
 
-        return eventos.map(evento -> new EventoSaudeResponseDTO(
-                evento.getId(),
-                evento.getPet().getId(),
-                evento.getTipoEvento(),
-                evento.getDescricao(),
-                evento.getDataEvento(),
-                evento.getPet().getHealthScore()
-        ));
+        Page<EventoSaude> eventos =
+                repository.findByPetIdOrderByDataEventoDesc(pet.getId(), paginacao);
+
+        return eventos.map(evento -> toResponse(evento, pet));
     }
 }

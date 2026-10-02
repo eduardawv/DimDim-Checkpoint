@@ -1,0 +1,6 @@
+/mvnw text eol=lf
+*.cmd text eol=crlf
+# CP5: scripts executados no Git Bash precisam de LF mesmo com clone no Windows
+*.sh   text eol=lf
+*.sql  text eol=lf
+*.json text eol=lf

@@ -1,8 +1,7 @@
 {
-  "nome": "Pipoca Atualizada",
+  "nome": "Thor",
   "especie": "Cachorro",
-  "raca": "Poodle Toy",
+  "raca": "Golden Retriever",
   "idade": 5,
-  "peso": 9.0,
-  "tutorId": 1
+  "peso": 30.2
 }

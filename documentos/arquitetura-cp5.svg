@@ -1,0 +1,270 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0078D4"/>
+    </marker>
+    <marker id="arrIndigo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3949AB"/>
+    </marker>
+    <marker id="arrPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7B1FA2"/>
+    </marker>
+    <marker id="arrAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B45309"/>
+    </marker>
+    <filter id="sh" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+
+    <!-- ===== Icones (48x48) ===== -->
+    <g id="i-webapp">
+      <rect width="48" height="48" rx="10" fill="#0078D4"/>
+      <circle cx="24" cy="24" r="13" fill="none" stroke="#fff" stroke-width="2.4"/>
+      <ellipse cx="24" cy="24" rx="5.5" ry="13" fill="none" stroke="#fff" stroke-width="2"/>
+      <line x1="11" y1="24" x2="37" y2="24" stroke="#fff" stroke-width="2"/>
+      <line x1="13.5" y1="17" x2="34.5" y2="17" stroke="#fff" stroke-width="1.6"/>
+      <line x1="13.5" y1="31" x2="34.5" y2="31" stroke="#fff" stroke-width="1.6"/>
+    </g>
+    <g id="i-plan">
+      <rect width="48" height="48" rx="10" fill="#50A0E6"/>
+      <rect x="10" y="10" width="12" height="12" rx="2" fill="#fff"/>
+      <rect x="26" y="10" width="12" height="12" rx="2" fill="#fff" opacity="0.85"/>
+      <rect x="10" y="26" width="12" height="12" rx="2" fill="#fff" opacity="0.85"/>
+      <rect x="26" y="26" width="12" height="12" rx="2" fill="#fff" opacity="0.6"/>
+    </g>
+    <g id="i-sqldb">
+      <path d="M8 12 v24 c0 4.4 7.2 8 16 8 s16-3.6 16-8 V12" fill="#0072C6"/>
+      <ellipse cx="24" cy="12" rx="16" ry="7" fill="#5EA0EF"/>
+      <text x="24" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#fff">SQL</text>
+    </g>
+    <g id="i-sqlserver">
+      <rect x="6" y="6" width="36" height="11" rx="3" fill="#3949AB"/>
+      <rect x="6" y="19" width="36" height="11" rx="3" fill="#3F51B5"/>
+      <rect x="6" y="32" width="36" height="11" rx="3" fill="#5C6BC0"/>
+      <circle cx="35" cy="11.5" r="2" fill="#B3E5FC"/><circle cx="35" cy="24.5" r="2" fill="#B3E5FC"/><circle cx="35" cy="37.5" r="2" fill="#B3E5FC"/>
+      <rect x="11" y="10" width="14" height="3" rx="1.5" fill="#C5CAE9"/><rect x="11" y="23" width="14" height="3" rx="1.5" fill="#C5CAE9"/><rect x="11" y="36" width="14" height="3" rx="1.5" fill="#C5CAE9"/>
+    </g>
+    <g id="i-insights">
+      <circle cx="24" cy="20" r="14" fill="#8E44AD"/>
+      <path d="M17 33 h14 v5 a3 3 0 0 1 -3 3 h-8 a3 3 0 0 1 -3 -3z" fill="#6C3483"/>
+      <path d="M18 22 l4 -6 l4 8 l4 -5" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g id="i-logs">
+      <rect width="48" height="48" rx="10" fill="#1E88E5"/>
+      <rect x="11" y="26" width="6" height="12" rx="1.5" fill="#fff"/>
+      <rect x="21" y="18" width="6" height="20" rx="1.5" fill="#fff"/>
+      <rect x="31" y="11" width="6" height="27" rx="1.5" fill="#fff"/>
+    </g>
+    <g id="i-key">
+      <circle cx="17" cy="24" r="10" fill="#F59E0B"/>
+      <circle cx="17" cy="24" r="4" fill="#FFFBEB"/>
+      <rect x="25" y="21" width="18" height="6" rx="2" fill="#F59E0B"/>
+      <rect x="35" y="27" width="4" height="7" rx="1" fill="#F59E0B"/>
+      <rect x="29" y="27" width="4" height="5" rx="1" fill="#F59E0B"/>
+    </g>
+    <g id="i-laptop">
+      <rect x="7" y="8" width="34" height="23" rx="3" fill="#1F2937"/>
+      <rect x="10" y="11" width="28" height="17" rx="1.5" fill="#0B1220"/>
+      <path d="M13 16 l4 3 l-4 3" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="19" y="21" width="9" height="2" rx="1" fill="#22C55E"/>
+      <path d="M3 34 h42 l-3 5 h-36z" fill="#4B5563"/>
+    </g>
+    <g id="i-github">
+      <circle cx="24" cy="24" r="21" fill="#24292F"/>
+      <circle cx="17" cy="15" r="3.5" fill="none" stroke="#fff" stroke-width="2.4"/>
+      <circle cx="17" cy="33" r="3.5" fill="none" stroke="#fff" stroke-width="2.4"/>
+      <circle cx="31" cy="19" r="3.5" fill="none" stroke="#fff" stroke-width="2.4"/>
+      <path d="M17 18.5 v11 M31 22.5 c0 6 -14 3 -14 7" fill="none" stroke="#fff" stroke-width="2.4"/>
+    </g>
+    <g id="i-user">
+      <circle cx="24" cy="24" r="21" fill="#E2E8F0"/>
+      <circle cx="24" cy="18" r="7" fill="#475569"/>
+      <path d="M11 37 c2 -8 8 -11 13 -11 s11 3 13 11" fill="#475569"/>
+    </g>
+    <g id="i-dbterm">
+      <rect x="4" y="6" width="40" height="36" rx="5" fill="#0B1220"/>
+      <rect x="4" y="6" width="40" height="7" rx="3" fill="#334155"/>
+      <path d="M10 20 l4 3 l-4 3" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="17" y="27" font-size="8" font-weight="700" fill="#FBBF24" font-family="DejaVu Sans Mono, monospace">SELECT</text>
+      <rect x="10" y="31" width="26" height="2" rx="1" fill="#64748B"/>
+      <rect x="10" y="35" width="18" height="2" rx="1" fill="#64748B"/>
+    </g>
+    <g id="i-rg">
+      <path d="M10 6 h-4 v36 h4 M38 6 h4 v36 h-4" fill="none" stroke="#0078D4" stroke-width="3"/>
+      <path d="M24 10 l11 6 v13 l-11 6 l-11 -6 v-13z" fill="#7FBAEA"/>
+      <path d="M24 10 l11 6 l-11 6 l-11 -6z" fill="#B9DBF7"/>
+      <path d="M24 22 v13 l11 -6 v-13z" fill="#4A9BDF"/>
+    </g>
+    <g id="i-azure">
+      <path d="M17 6 h11 L16 42 H5z" fill="#0078D4"/>
+      <path d="M30 14 L43 42 H20 l8 -6 h-7z" fill="#50A0E6"/>
+    </g>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#F8FAFC"/>
+
+  <!-- ===== Titulo ===== -->
+  <text x="40" y="52" font-size="28" font-weight="800" fill="#0F172A">CLYVO Predict · CP5 — Arquitetura em nuvem (Azure PaaS)</text>
+  <text x="40" y="82" font-size="15" fill="#475569">Java 21 + Spring Boot 3.5 no Azure Web App · Azure SQL Database · Application Insights · deploy por Azure CLI (az webapp deploy)</text>
+
+  <!-- ===== Coluna esquerda: atores externos ===== -->
+  <g filter="url(#sh)">
+    <rect x="40" y="130" width="290" height="150" rx="14" fill="#fff" stroke="#CBD5E1"/>
+    <rect x="40" y="320" width="290" height="125" rx="14" fill="#fff" stroke="#CBD5E1"/>
+    <rect x="40" y="490" width="290" height="125" rx="14" fill="#fff" stroke="#CBD5E1"/>
+    <rect x="40" y="680" width="290" height="140" rx="14" fill="#fff" stroke="#CBD5E1"/>
+  </g>
+  <use href="#i-laptop" x="56" y="146"/>
+  <text x="116" y="168" font-size="16" font-weight="700" fill="#0F172A">Equipe (Windows)</text>
+  <text x="116" y="190" font-size="13" fill="#475569">Git Bash + Azure CLI</text>
+  <text x="58" y="222" font-size="13" fill="#334155">• scripts/azure-setup.sh</text>
+  <text x="58" y="242" font-size="13" fill="#334155">• Maven: build do JAR (Java 21)</text>
+  <text x="58" y="262" font-size="13" fill="#334155">• scripts/azure-destroy.sh</text>
+
+  <use href="#i-github" x="56" y="336"/>
+  <text x="116" y="358" font-size="16" font-weight="700" fill="#0F172A">Repositório GitHub</text>
+  <text x="116" y="380" font-size="13" fill="#475569">fonte da verdade</text>
+  <text x="58" y="410" font-size="13" fill="#334155">• código Java · scripts CLI · DDL</text>
+  <text x="58" y="430" font-size="13" fill="#334155">• JSON das operações · README</text>
+
+  <use href="#i-user" x="56" y="506"/>
+  <text x="116" y="528" font-size="16" font-weight="700" fill="#0F172A">Usuário / Avaliador</text>
+  <text x="116" y="550" font-size="13" fill="#475569">Swagger UI · curl</text>
+  <text x="58" y="580" font-size="13" fill="#334155">• scripts/crud-demo.sh</text>
+  <text x="58" y="600" font-size="13" fill="#334155">• login → token JWT → CRUD</text>
+
+  <use href="#i-dbterm" x="56" y="696"/>
+  <text x="116" y="718" font-size="16" font-weight="700" fill="#0F172A">Terminal do banco</text>
+  <text x="116" y="740" font-size="13" fill="#475569">exclusivo para consultas</text>
+  <text x="58" y="770" font-size="13" fill="#334155">• scripts/db-terminal.sh (sqlcmd)</text>
+  <text x="58" y="790" font-size="13" fill="#334155">• IPv4 da equipe liberado</text>
+  <text x="68" y="810" font-size="13" fill="#334155">no firewall do SQL</text>
+
+  <!-- git push -->
+  <line x1="185" y1="318" x2="185" y2="284" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="195" y="306" font-size="12" fill="#334155">git clone / push</text>
+
+  <!-- ===== Azure ===== -->
+  <rect x="400" y="110" width="1170" height="860" rx="20" fill="#EFF6FF" stroke="#93C5FD" stroke-width="2"/>
+  <use href="#i-azure" x="420" y="122" width="48" height="48" transform="translate(420 122) scale(0.7) translate(-420 -122)"/>
+  <text x="458" y="148" font-size="17" font-weight="800" fill="#0C4A6E">Microsoft Azure</text>
+  <text x="610" y="148" font-size="13" fill="#0C4A6E">assinatura FIAP · regiões permitidas pela policy (fallback automático no script)</text>
+
+  <rect x="425" y="165" width="1120" height="785" rx="16" fill="#FFFFFF" fill-opacity="0.55" stroke="#0078D4" stroke-width="1.6" stroke-dasharray="7 6"/>
+  <use href="#i-rg" x="440" y="174" transform="translate(440 174) scale(0.6) translate(-440 -174)"/>
+  <text x="474" y="196" font-size="14" font-weight="700" fill="#075985">Resource Group: rg-rm564434-dimdim-cp5</text>
+  <text x="790" y="196" font-size="13" fill="#0369A1">região principal: Mexico Central</text>
+
+  <!-- App Service Plan + Web App -->
+  <rect x="455" y="215" width="500" height="320" rx="14" fill="#E3F2FD" stroke="#64B5F6"/>
+  <use href="#i-plan" x="470" y="226" transform="translate(470 226) scale(0.62) translate(-470 -226)"/>
+  <text x="508" y="248" font-size="14" font-weight="700" fill="#0D47A1">App Service Plan · rm564434-dimdim-plan · B1 Linux</text>
+  <g filter="url(#sh)"><rect x="480" y="268" width="450" height="248" rx="12" fill="#fff" stroke="#1565C0" stroke-width="1.6"/></g>
+  <use href="#i-webapp" x="498" y="284"/>
+  <text x="560" y="304" font-size="17" font-weight="800" fill="#0D47A1">Azure Web App</text>
+  <text x="560" y="326" font-size="13" fill="#1E3A8A">rm564434-dimdim-webapp.azurewebsites.net</text>
+  <text x="500" y="362" font-size="13" fill="#1F2937">• Java 21 · Spring Boot 3.5 · API REST (tutores, pets, eventos)</text>
+  <text x="500" y="384" font-size="13" fill="#1F2937">• Spring Security · JWT (RSA) · senhas com BCrypt</text>
+  <text x="500" y="406" font-size="13" fill="#1F2937">• Flyway: cria as tabelas (T-SQL) no start</text>
+  <text x="500" y="428" font-size="13" fill="#1F2937">• HTTPS obrigatório · TLS 1.2 · FTP desligado · Always On</text>
+  <text x="500" y="450" font-size="13" fill="#1F2937">• Swagger: /swagger-ui.html</text>
+  <text x="500" y="472" font-size="13" fill="#1F2937">• Perfil Spring "azure" (application-azure.properties)</text>
+  <text x="500" y="500" font-size="12" fill="#64748B">Deploy: az webapp deploy --type jar</text>
+
+  <!-- SQL Server + DB -->
+  <rect x="455" y="590" width="500" height="340" rx="14" fill="#E8EAF6" stroke="#7986CB"/>
+  <use href="#i-sqlserver" x="470" y="600" transform="translate(470 600) scale(0.62) translate(-470 -600)"/>
+  <text x="508" y="622" font-size="14" font-weight="700" fill="#1A237E">Azure SQL Server · rm564434-dimdim-sqlsrv</text>
+  <text x="508" y="642" font-size="12" fill="#3949AB">firewall: serviços Azure + IPv4 da equipe · TLS 1.2 mínimo</text>
+  <g filter="url(#sh)"><rect x="480" y="658" width="450" height="252" rx="12" fill="#fff" stroke="#3949AB" stroke-width="1.6"/></g>
+  <use href="#i-sqldb" x="498" y="672"/>
+  <text x="560" y="692" font-size="17" font-weight="800" fill="#1A237E">Azure SQL Database</text>
+  <text x="560" y="714" font-size="13" fill="#283593">dimdimdb · tier Basic (PaaS)</text>
+  <!-- mini ER -->
+  <g font-size="13" font-weight="700">
+    <rect x="500" y="740" width="120" height="34" rx="8" fill="#E8EAF6" stroke="#3949AB"/><text x="560" y="762" text-anchor="middle" fill="#1A237E">tb_tutor</text>
+    <rect x="660" y="740" width="110" height="34" rx="8" fill="#E8EAF6" stroke="#3949AB"/><text x="715" y="762" text-anchor="middle" fill="#1A237E">tb_pet</text>
+    <rect x="500" y="800" width="160" height="34" rx="8" fill="#F1F5F9" stroke="#94A3B8"/><text x="580" y="822" text-anchor="middle" fill="#334155">tb_evento_saude</text>
+    <rect x="690" y="800" width="160" height="34" rx="8" fill="#F1F5F9" stroke="#94A3B8"/><text x="770" y="822" text-anchor="middle" fill="#334155">tb_veterinario</text>
+  </g>
+  <line x1="620" y1="757" x2="658" y2="757" stroke="#3949AB" stroke-width="2" marker-end="url(#arrIndigo)"/>
+  <text x="626" y="750" font-size="11" fill="#3949AB">1:N</text>
+  <path d="M715 774 v12 h-135 v12" fill="none" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="722" y="792" font-size="11" fill="#64748B">1:N</text>
+  <text x="500" y="860" font-size="12" fill="#475569">CRUD demonstrado: tb_tutor e tb_pet (FK tutor_id, ON DELETE CASCADE)</text>
+  <text x="500" y="880" font-size="12" fill="#475569">Migrations versionadas em flyway_schema_history</text>
+
+  <!-- App Settings -->
+  <g filter="url(#sh)"><rect x="1015" y="215" width="505" height="215" rx="14" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.6"/></g>
+  <use href="#i-key" x="1032" y="230"/>
+  <text x="1094" y="252" font-size="17" font-weight="800" fill="#92400E">App Settings do Web App</text>
+  <text x="1094" y="274" font-size="13" fill="#B45309">variáveis de ambiente · segredos fora do código</text>
+  <g font-family="DejaVu Sans Mono, monospace" font-size="12.5" fill="#78350F">
+    <text x="1036" y="310">SPRING_PROFILES_ACTIVE=azure</text>
+    <text x="1036" y="332">SPRING_DATASOURCE_URL / USERNAME / PASSWORD</text>
+    <text x="1036" y="354">APPLICATIONINSIGHTS_CONNECTION_STRING</text>
+    <text x="1036" y="376">ApplicationInsightsAgent_EXTENSION_VERSION=~3</text>
+  </g>
+  <text x="1036" y="410" font-size="12" fill="#92400E">Senha do banco digitada no setup (oculta) — nunca vai para o GitHub</text>
+
+  <!-- Application Insights -->
+  <g filter="url(#sh)"><rect x="1015" y="470" width="505" height="200" rx="14" fill="#F5EEF8" stroke="#8E44AD" stroke-width="1.6"/></g>
+  <use href="#i-insights" x="1032" y="484"/>
+  <text x="1094" y="506" font-size="17" font-weight="800" fill="#5B2C6F">Application Insights</text>
+  <text x="1094" y="528" font-size="13" fill="#7D3C98">rm564434-dimdim-insights · agente Java (codeless)</text>
+  <text x="1036" y="564" font-size="13" fill="#4A235A">• Live Metrics: requisições em tempo real</text>
+  <text x="1036" y="586" font-size="13" fill="#4A235A">• Application Map: Web App → Azure SQL</text>
+  <text x="1036" y="608" font-size="13" fill="#4A235A">• Performance, Falhas e dependências SQL</text>
+  <text x="1036" y="630" font-size="13" fill="#4A235A">• Logs (KQL): requests, dependencies, exceptions</text>
+
+  <!-- Log Analytics -->
+  <g filter="url(#sh)"><rect x="1015" y="720" width="505" height="130" rx="14" fill="#E3F2FD" stroke="#1E88E5" stroke-width="1.6"/></g>
+  <use href="#i-logs" x="1032" y="736"/>
+  <text x="1094" y="758" font-size="17" font-weight="800" fill="#0D47A1">Log Analytics Workspace</text>
+  <text x="1094" y="780" font-size="13" fill="#1565C0">rm564434-dimdim-logs · retenção 30 dias</text>
+  <text x="1036" y="820" font-size="13" fill="#1E3A8A">Armazena a telemetria do Application Insights</text>
+
+  <!-- ===== Conexoes ===== -->
+  <!-- Equipe -> Azure (CLI) -->
+  <path d="M330 175 H 425" stroke="#334155" stroke-width="2.2" fill="none" marker-end="url(#arr)"/>
+  <rect x="338" y="150" width="80" height="20" rx="4" fill="#F8FAFC"/>
+  <text x="342" y="165" font-size="12" font-weight="700" fill="#334155">① az CLI</text>
+  <!-- Equipe -> Web App (deploy) -->
+  <path d="M330 250 H 400 V 300 H 478" stroke="#0078D4" stroke-width="2.2" fill="none" marker-end="url(#arrBlue)"/>
+  <text x="338" y="243" font-size="12" font-weight="700" fill="#0078D4">② deploy</text>
+  <!-- Usuario -> Web App -->
+  <path d="M330 552 H 412 V 470 H 478" stroke="#0078D4" stroke-width="2.2" fill="none" marker-end="url(#arrBlue)"/>
+  <text x="336" y="545" font-size="12" font-weight="700" fill="#0078D4">HTTPS 443</text>
+  <text x="338" y="572" font-size="11" fill="#0078D4">Bearer JWT</text>
+  <!-- Terminal -> SQL DB -->
+  <path d="M330 750 H 478" stroke="#3949AB" stroke-width="2.2" fill="none" marker-end="url(#arrIndigo)"/>
+  <text x="338" y="743" font-size="12" font-weight="700" fill="#3949AB">TDS 1433</text>
+  <text x="338" y="768" font-size="11" fill="#3949AB">TLS</text>
+  <!-- Web App -> SQL -->
+  <path d="M905 516 V 656" stroke="#3949AB" stroke-width="2.6" fill="none" marker-end="url(#arrIndigo)"/>
+  <rect x="745" y="543" width="150" height="40" rx="6" fill="#fff" stroke="#C5CAE9"/>
+  <text x="755" y="560" font-size="12" font-weight="700" fill="#3949AB">JDBC mssql · 1433</text>
+  <text x="755" y="576" font-size="11" fill="#3949AB">encrypt=true (TLS)</text>
+  <!-- App Settings -> Web App -->
+  <path d="M1015 330 H 932" stroke="#B45309" stroke-width="2.2" fill="none" stroke-dasharray="6 4" marker-end="url(#arrAmber)"/>
+  <text x="952" y="320" font-size="12" font-weight="700" fill="#B45309">env vars</text>
+  <!-- Web App -> App Insights -->
+  <path d="M930 500 H 1013" stroke="#7B1FA2" stroke-width="2.2" fill="none" stroke-dasharray="6 4" marker-end="url(#arrPurple)"/>
+  <text x="942" y="492" font-size="12" font-weight="700" fill="#7B1FA2">telemetria</text>
+  <!-- App Insights -> Log Analytics -->
+  <path d="M1267 670 V 718" stroke="#1E88E5" stroke-width="2.2" fill="none" marker-end="url(#arrBlue)"/>
+  <text x="1277" y="700" font-size="12" font-weight="700" fill="#1E88E5">armazena</text>
+
+  <!-- ===== Legenda ===== -->
+  <rect x="40" y="845" width="290" height="125" rx="12" fill="#fff" stroke="#CBD5E1"/>
+  <text x="56" y="868" font-size="13" font-weight="800" fill="#0F172A">Legenda</text>
+  <rect x="56" y="880" width="14" height="14" rx="3" fill="#0078D4"/><text x="78" y="892" font-size="12" fill="#334155">Computação / HTTP</text>
+  <rect x="200" y="880" width="14" height="14" rx="3" fill="#3949AB"/><text x="222" y="892" font-size="12" fill="#334155">Banco (PaaS)</text>
+  <rect x="56" y="904" width="14" height="14" rx="3" fill="#8E44AD"/><text x="78" y="916" font-size="12" fill="#334155">Monitoramento</text>
+  <rect x="200" y="904" width="14" height="14" rx="3" fill="#F59E0B"/><text x="222" y="916" font-size="12" fill="#334155">Configuração</text>
+  <line x1="56" y1="940" x2="96" y2="940" stroke="#334155" stroke-width="2"/><text x="104" y="944" font-size="12" fill="#334155">chamada</text>
+  <line x1="180" y1="940" x2="220" y2="940" stroke="#334155" stroke-width="2" stroke-dasharray="6 4"/><text x="228" y="944" font-size="12" fill="#334155">config/telemetria</text>
+</svg>

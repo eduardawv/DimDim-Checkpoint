@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/tutores")
-@CrossOrigin(origins = "*") // Permite que o aplicativo mobile se conecte aqui
+@CrossOrigin(origins = "*")
 public class TutorController {
 
     @Autowired

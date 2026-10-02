@@ -1,21 +1,25 @@
-FROM eclipse-temurin:17-jdk AS build
+# NOVO - Sprint 4
+# Build em multi-stage: a imagem final nao carrega Maven nem codigo-fonte.
+FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
-COPY pom.xml .
-COPY .mvn/ .mvn/
-COPY mvnw .
-RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
-RUN ./mvnw dependency:go-offline -B --no-transfer-progress
-COPY src/ src/
-RUN ./mvnw package -DskipTests -B --no-transfer-progress
 
-FROM eclipse-temurin:17-jre AS runtime
+COPY pom.xml .
+RUN mvn -B -q dependency:go-offline
+
+COPY src ./src
+RUN mvn -B -q clean package -DskipTests
+
+# Imagem de execucao
+FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-RUN groupadd --system appgroup && \
-    useradd --system --gid appgroup --shell /bin/false appuser
-COPY --from=build /app/target/clyvo-predict-0.0.1-SNAPSHOT.jar app.jar
-RUN chown -R appuser:appgroup /app
-USER appuser
+
+# Requisito da disciplina de DevOps: o container nao pode rodar como root
+RUN addgroup -S clyvo && adduser -S clyvo -G clyvo
+
+COPY --from=build /app/target/*.jar app.jar
+RUN chown -R clyvo:clyvo /app
+
+USER clyvo
 EXPOSE 8080
-ENV JAVA_OPTS="-Xms256m -Xmx512m"
-ENV SPRING_PROFILES_ACTIVE=prod
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

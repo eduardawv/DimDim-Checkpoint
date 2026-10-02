@@ -1,0 +1,413 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: CLYVO VET - Sprint 1
+meta:
+  id: wrk_c99ffacd601343de879f2dd7c6c873ea
+  created: 1779660713633
+  modified: 1779660713633
+  description: ""
+collection:
+  - name: Tutores
+    meta:
+      id: fld_6c004920fdbd45f687eb844c585b240f
+      created: 1779671124074
+      modified: 1779671124074
+      sortKey: -1779671124077
+      description: ""
+    children:
+      - url: http://localhost:8080/api/tutores
+        name: Listar Tutores
+        meta:
+          id: req_8c6c06dafb394e9cad2fefbc5c1fa92b
+          created: 1779669153091
+          modified: 1779671348351
+          isPrivate: false
+          description: ""
+          sortKey: -1779671260725
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/tutores
+        name: "Cadastrar Tutor "
+        meta:
+          id: req_e11c819cfe3a446d88645989140d819a
+          created: 1779669891069
+          modified: 1779671164504
+          isPrivate: false
+          description: ""
+          sortKey: -1779671164473
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Professor Avaliador",
+              "email": "avaliador@fiap.com.br",
+              "telefone": "11999999999",
+              "senha": "senha123"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/tutores/1
+        name: "Atualizar Tutor "
+        meta:
+          id: req_f3acaa0fce69456da9f9c3b530ed9f57
+          created: 1779671217525
+          modified: 1779671634271
+          isPrivate: false
+          description: ""
+          sortKey: -1779671217525
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Professor Avaliador Atualizado",
+              "email": "novo.avaliador@fiap.com.br",
+              "telefone": "11988888888",
+              "senha": "nova_senha_segura"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/tutores/1
+        name: "Deletar Tutor "
+        meta:
+          id: req_4ee5de65825d40c49d02a3d493aa2a70
+          created: 1779671260625
+          modified: 1779671622266
+          isPrivate: false
+          description: ""
+          sortKey: -1779671260625
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/tutores/1
+        name: Buscar Tutor por ID
+        meta:
+          id: req_93414c5d02c540f48374aefa17e29395
+          created: 1779671574689
+          modified: 1779671603648
+          isPrivate: false
+          description: ""
+          sortKey: -1779671574689
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/tutores/login
+        name: "Login Tutor "
+        meta:
+          id: req_29e5769d67f444a5ab6d71e9be005064
+          created: 1779671644584
+          modified: 1779671678163
+          isPrivate: false
+          description: ""
+          sortKey: -1779671644584
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "email": "avaliador@fiap.com.br",
+              "senha": "senha123"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Pets
+    meta:
+      id: fld_f87da3296e75459d80111e0b3c729fb4
+      created: 1779671297765
+      modified: 1779671314121
+      sortKey: -1779671297915
+      description: ""
+    children:
+      - url: http://localhost:8080/api/pets
+        name: Cadastrar Pet
+        meta:
+          id: req_dc4d0a9c85684746aaf9cc2a98a25421
+          created: 1779670201638
+          modified: 1779671334339
+          isPrivate: false
+          description: ""
+          sortKey: -1779671334323
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Rex",
+              "especie": "Cachorro",
+              "raca": "Vira-lata",
+              "idade": 2,
+              "peso": 15.5,
+              "tutorId": 21
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/pets/1
+        name: "Atualizar Pet "
+        meta:
+          id: req_2aa50e3c5cc04b72a21944c6d8f2a559
+          created: 1779671365680
+          modified: 1779671818817
+          isPrivate: false
+          description: ""
+          sortKey: -1779671365680
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Rex",
+              "especie": "Cachorro",
+              "raca": "Vira-lata",
+              "idade": 3,
+              "peso": 16.5,
+              "tutorId": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/pets/1
+        name: Buscar Pet por ID
+        meta:
+          id: req_b6820a822a3941ff9befd71a91ee5fc8
+          created: 1779671858761
+          modified: 1779671883526
+          isPrivate: false
+          description: ""
+          sortKey: -1779671858761
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/pets/1
+        name: Excluir Pet
+        meta:
+          id: req_47654bb69921448ebb76bb0056fa988e
+          created: 1779671891377
+          modified: 1779671910232
+          isPrivate: false
+          description: ""
+          sortKey: -1779671891377
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/pets?page=0&size=5
+        name: "Listar Pets "
+        meta:
+          id: req_a0026e8c95604b8a9a3cb9aaaf726ffe
+          created: 1779671928150
+          modified: 1779671949268
+          isPrivate: false
+          description: ""
+          sortKey: -1779671928150
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Eventos
+    meta:
+      id: fld_bf615f52ecac43ef9790fa4ac4397a14
+      created: 1779672040774
+      modified: 1779672040774
+      sortKey: -1779672040774
+      description: ""
+    children:
+      - url: http://localhost:8080/api/eventos
+        name: "Cadastrar Evento "
+        meta:
+          id: req_a0bccd8044eb46bc86414162c147e29c
+          created: 1779670690623
+          modified: 1779672046235
+          isPrivate: false
+          description: ""
+          sortKey: -1779672046209
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "petId": 1,
+              "tipoEvento": "VACINA",
+              "descricao": "Vacina antirrábica anual",
+              "dataEvento": "2026-05-24"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/eventos/pet/1
+        name: "Listar Eventos do Pet "
+        meta:
+          id: req_fbe281d19b8e469784d9bc8c71524b12
+          created: 1779672061081
+          modified: 1779672078599
+          isPrivate: false
+          description: ""
+          sortKey: -1779672061081
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_6798788fd1cd7d98b94f2caa0c8da35f3d4a7888
+    created: 1779660713641
+    modified: 1779660713641
+environments:
+  name: Base Environment
+  meta:
+    id: env_6798788fd1cd7d98b94f2caa0c8da35f3d4a7888
+    created: 1779660713638
+    modified: 1779660713638
+    isPrivate: false
