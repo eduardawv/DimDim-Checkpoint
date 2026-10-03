@@ -316,7 +316,17 @@ fi
 # ------------------- 10. Build + Deploy -------------------------
 step "10/10 Build (Maven) e deploy no Web App"
 chmod +x mvnw 2>/dev/null || true
-./mvnw -B -q -DskipTests clean package || fail "Build falhou. Rode './mvnw -B -DskipTests package' para ver o erro completo."
+if ! ./mvnw -B -q -DskipTests clean package; then
+  # O curl do Git Bash ignora o proxy/certificados do Windows. O mvnw.cmd baixa
+  # o Maven pelo PowerShell, que usa as configuracoes de rede do Windows.
+  if command -v cmd.exe >/dev/null 2>&1 && [[ -f mvnw.cmd ]]; then
+    warn "O mvnw do Git Bash falhou. Tentando pelo mvnw.cmd (rede do Windows)..."
+    cmd.exe /c "mvnw.cmd -B -q -DskipTests clean package" \
+      || fail "Build falhou tambem pelo mvnw.cmd. Rode no PowerShell: .\\mvnw.cmd -B -DskipTests package  e envie o erro."
+  else
+    fail "Build falhou. Rode './mvnw -B -DskipTests package' para ver o erro completo."
+  fi
+fi
 JAR_PATH=$(ls target/*.jar 2>/dev/null | head -1 || true)
 [[ -n "$JAR_PATH" ]] || fail "JAR nao encontrado em target/."
 ok "Build concluido: $JAR_PATH"
