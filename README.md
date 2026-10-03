@@ -127,16 +127,20 @@ Todos os comandos são para **Windows com Git Bash**, executados na raiz do repo
 Em um PowerShell, instale o que faltar e depois **feche e reabra o Git Bash**:
 
 ```powershell
+winget install Git.Git
 winget install Microsoft.AzureCLI
 winget install EclipseAdoptium.Temurin.21.JDK
 winget install sqlcmd
 ```
 
-O Git Bash já traz `git`, `curl` e `openssl`. O Maven não precisa ser instalado: o projeto usa o Maven Wrapper (`./mvnw`).
+O Git Bash já traz `curl` e `openssl`. O Maven não precisa ser instalado: o projeto usa o Maven Wrapper (`./mvnw`, com alternativa automática pelo `mvnw.cmd`).
 
 ### 8.2 Clonar e fazer login
 
+Clone **fora do OneDrive** (a sincronização trava arquivos e quebra o Git):
+
 ```bash
+mkdir -p /c/dev && cd /c/dev
 git clone https://github.com/eduardawv/DimDim-Checkpoint.git
 cd DimDim-Checkpoint
 az login
@@ -186,12 +190,27 @@ curl -s $URL/api/pets -H "Authorization: Bearer $TOKEN"
 
 No portal do Azure, abra `rm564434-dimdim-insights` (o link aparece no final do `azure-setup.sh`):
 
-- **Live Metrics:** requisições chegando em tempo real enquanto o `crud-demo.sh` roda.
-- **Application Map:** `clyvo-predict-api` chamando o Azure SQL.
-- **Performance** e **Failures:** tempo de resposta por rota e erros.
-- **Logs (KQL):** por exemplo `requests | order by timestamp desc` e `dependencies | where type == "SQL"`.
+- **Visão geral:** gráficos de solicitações, tempo de resposta e falhas.
+- **Investigar > Métricas ao vivo (Live Metrics):** requisições chegando em tempo real enquanto o `crud-demo.sh` roda.
+- **Investigar > Mapa do aplicativo:** `clyvo-predict-api` chamando o Azure SQL.
+- **Investigar > Desempenho** e **Falhas:** tempo de resposta por rota e erros.
+- **Monitoramento > Logs (KQL):**
 
-A telemetria pode levar de 2 a 5 minutos para aparecer em Performance e Logs; o Live Metrics é imediato.
+```kusto
+requests
+| where timestamp > ago(1h)
+| summarize total = count(), media_ms = avg(duration) by name
+| order by total desc
+```
+
+```kusto
+dependencies
+| where timestamp > ago(1h) and type == "SQL"
+| project timestamp, target, name, duration, success
+| order by timestamp desc
+```
+
+A telemetria pode levar de 2 a 5 minutos para aparecer em Desempenho e Logs; as Métricas ao vivo são imediatas.
 
 ### 8.7 Remover os recursos (depois de gravar o vídeo)
 
@@ -207,7 +226,11 @@ bash scripts/azure-destroy.sh
 | `RegionDoesNotAllowProvisioning` / `RequestDisallowedByAzure` | Região sem capacidade ou bloqueada pela policy. O script tenta a próxima região permitida. Para forçar uma: `AZ_REGION=eastus2 bash scripts/azure-setup.sh`. |
 | Terminal do banco não conecta | IP mudou (rede diferente). Rode `bash scripts/azure-liberar-ip.sh`. |
 | API não responde após o deploy | Veja o log: `az webapp log tail -g rg-rm564434-dimdim-cp5 -n rm564434-dimdim-webapp`. |
-| `chmod` não existe | Esse comando é do Linux; no Git Bash execute os scripts com `bash scripts/<nome>.sh`. |
+| `Login failed for user 'dimdimadmin'` no terminal do banco | Senha diferente da digitada na **última** execução do `azure-setup.sh` (ele sincroniza a senha do servidor a cada execução). Digite de novo ou rode o setup outra vez com a senha desejada. |
+| `curl: Failed to fetch ... apache-maven-...zip` | O curl do Git Bash não usa o proxy/certificados do Windows. O script tenta sozinho pelo `mvnw.cmd`; se também falhar, a rede bloqueia o Maven Central (use outra rede, ex.: 4G). |
+| HTTP 400 `E-mail já cadastrado` no `crud-demo.sh` | Os dados da demo já existem. No terminal do banco use a opção 9 (limpar) e rode de novo. |
+| `Permission denied` / `Deletion of directory failed` no Git | Repositório dentro do OneDrive. Clone em `C:\dev` (seção 8.2). |
+| `chmod` não existe / comandos `/c/...` falham | Use o **Git Bash** (não o PowerShell) e execute os scripts com `bash scripts/<nome>.sh`. |
 
 ## 10. Estrutura do repositório
 
